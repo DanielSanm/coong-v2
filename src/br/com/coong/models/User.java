@@ -1,5 +1,9 @@
 package br.com.coong.models;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public abstract class User {
 
     private String name;
@@ -19,6 +23,19 @@ public abstract class User {
     }
 
     public void setName(String name) {
+        MessageDigest algorithm = null;
+        try {
+
+            algorithm = MessageDigest.getInstance("MD5");
+            byte messageDigest[] = algorithm.digest(password.getBytes("UTF-8"));
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+
         this.name = name;
     }
 
